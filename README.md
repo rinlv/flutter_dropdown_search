@@ -4,6 +4,9 @@ Flutter library for building input fields with InputOptions as input options bas
 
 ## Usage
 
+| ![Image](https://github.com/rinlv/flutter_dropdown_search/blob/master/image/1.png) | ![Image](https://github.com/rinlv/flutter_dropdown_search/blob/master/image/2.png) |
+| :------------: | :------------: |
+
 ### Import
 
 ```dart
