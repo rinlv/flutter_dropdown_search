@@ -130,8 +130,9 @@ class _OptionsInputState<T> extends State<OptionsInput<T>> {
             ? min(topAvailableSpace, widget.suggestionsBoxMaxHeight)
             : min(bottomAvailableSpace, widget.suggestionsBoxMaxHeight);
 
-        final compositedTransformFollowerOffset =
-            showTop ? Offset(0, -size.height) : Offset.zero;
+        final compositedTransformFollowerOffset = showTop
+            ? Offset(0, -size.height - widget.spaceSuggestionBox)
+            : Offset(0, widget.spaceSuggestionBox);
 
         return StreamBuilder<List<T>>(
           stream: _suggestionsStreamController.stream,
