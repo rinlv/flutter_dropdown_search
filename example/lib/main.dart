@@ -56,7 +56,6 @@ class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController textEditingController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   }
                   return mockResults;
                 },
-                suggestionBuilder: (context, state, profile, _) {
+                suggestionBuilder: (context, state, profile) {
                   return ListTile(
                     key: ObjectKey(profile),
                     title: Text(profile),
