@@ -17,6 +17,8 @@ class OptionsInput<T> extends StatefulWidget {
   final OptionsBuilder<T> suggestionBuilder;
   final TextEditingController textEditingController;
   final double suggestionsBoxMaxHeight;
+  final double inputHeight;
+  final double spaceSuggestionBox;
   final FocusNode focusNode;
   final InputDecoration inputDecoration;
   final TextInputAction textInputAction;
@@ -30,13 +32,15 @@ class OptionsInput<T> extends StatefulWidget {
       @required this.onChanged,
       @required this.suggestionBuilder,
       this.textEditingController,
-      this.suggestionsBoxMaxHeight = 0,
       this.focusNode,
       this.inputDecoration,
       this.textInputAction,
       this.textStyle,
+      this.suggestionsBoxMaxHeight = 0,
       this.scrollPadding = 40,
-      this.initOptions = const []})
+      this.initOptions = const [],
+      this.inputHeight = 40,
+      this.spaceSuggestionBox = 4})
       : super(key: key);
 
   @override
@@ -75,19 +79,19 @@ class _OptionsInputState<T> extends State<OptionsInput<T>> {
       child: SizeChangedLayoutNotifier(
         child: Column(
           children: [
-            TextField(
-              controller: widget.textEditingController,
-              focusNode: _focusNode,
-              onChanged: _onSearchChanged,
-              decoration: widget.inputDecoration,
-              textInputAction: widget.textInputAction,
-              maxLines: 1,
-              style: widget.textStyle,
-              onSubmitted: _onSearchChanged,
-              scrollPadding: EdgeInsets.only(bottom: widget.scrollPadding),
-            ),
-            SizedBox(
-              height: 4,
+            Container(
+              child: TextField(
+                controller: widget.textEditingController,
+                focusNode: _focusNode,
+                onChanged: _onSearchChanged,
+                decoration: widget.inputDecoration,
+                textInputAction: widget.textInputAction,
+                maxLines: 1,
+                style: widget.textStyle,
+                onSubmitted: _onSearchChanged,
+                scrollPadding: EdgeInsets.only(bottom: widget.scrollPadding),
+              ),
+              height: widget.inputHeight,
             ),
             CompositedTransformTarget(
               link: _layerLink,
