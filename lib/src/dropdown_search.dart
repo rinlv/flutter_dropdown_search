@@ -9,7 +9,7 @@ import 'suggestions_box_controller.dart';
 typedef OptionsInputSuggestions<T> = FutureOr<List<T>> Function(String query);
 typedef OptionSelected<T> = void Function(T data, bool selected);
 typedef OptionsBuilder<T> = Widget Function(
-    BuildContext context, _OptionsInputState<T> state, T data);
+    BuildContext context, _OptionsInputState<T> state, T data, int index);
 
 class OptionsInput<T> extends StatefulWidget {
   final OptionsInputSuggestions<T> findSuggestions;
@@ -150,10 +150,7 @@ class _OptionsInputState<T> extends State<OptionsInput<T>> {
                     itemCount: snapshot.data.length,
                     itemBuilder: (BuildContext context, int index) {
                       return widget.suggestionBuilder(
-                        context,
-                        this,
-                        snapshot.data[index],
-                      );
+                          context, this, snapshot.data[index], index);
                     },
                   ),
                 ),

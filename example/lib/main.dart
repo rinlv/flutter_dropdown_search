@@ -100,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   }
                   return mockResults;
                 },
-                suggestionBuilder: (context, state, profile) {
+                suggestionBuilder: (context, state, profile, _) {
                   return ListTile(
                     key: ObjectKey(profile),
                     title: Text(profile),
