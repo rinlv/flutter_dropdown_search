@@ -99,6 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   }
                   return mockResults;
                 },
+                borderRadius: 8,
                 suggestionBuilder: (context, state, profile) {
                   return ListTile(
                     key: ObjectKey(profile),

@@ -142,6 +142,7 @@ class _OptionsInputState<T> extends State<OptionsInput<T>> {
             if (snapshot.hasData && snapshot.data.isNotEmpty) {
               var suggestionsListView = Material(
                 elevation: 4.0,
+                borderRadius: BorderRadius.circular(widget.borderRadius),
                 child: ConstrainedBox(
                   constraints: BoxConstraints(
                     maxHeight: _suggestionBoxHeight,
@@ -151,21 +152,8 @@ class _OptionsInputState<T> extends State<OptionsInput<T>> {
                     padding: EdgeInsets.zero,
                     itemCount: snapshot.data.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return widget.borderRadius > 0
-                          ? Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.vertical(
-                                      top: index == 0
-                                          ? Radius.circular(widget.borderRadius)
-                                          : Radius.zero,
-                                      bottom: index == snapshot.data.length - 1
-                                          ? Radius.circular(widget.borderRadius)
-                                          : Radius.zero)),
-                              child: widget.suggestionBuilder(
-                                  context, this, snapshot.data[index]),
-                            )
-                          : widget.suggestionBuilder(
-                              context, this, snapshot.data[index]);
+                      return widget.suggestionBuilder(
+                          context, this, snapshot.data[index]);
                     },
                   ),
                 ),
