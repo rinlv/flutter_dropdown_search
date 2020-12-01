@@ -26,6 +26,7 @@ class OptionsInput<T> extends StatefulWidget {
   final double scrollPadding;
   final List<T> initOptions;
   final double borderRadius;
+  final Color backgroundColor;
 
   const OptionsInput(
       {Key key,
@@ -42,7 +43,8 @@ class OptionsInput<T> extends StatefulWidget {
       this.initOptions = const [],
       this.inputHeight = 40,
       this.spaceSuggestionBox = 4,
-      this.borderRadius = 0})
+      this.borderRadius = 0,
+      this.backgroundColor = Colors.white})
       : super(key: key);
 
   @override
@@ -143,6 +145,7 @@ class _OptionsInputState<T> extends State<OptionsInput<T>> {
               var suggestionsListView = Material(
                 elevation: 4.0,
                 borderRadius: BorderRadius.circular(widget.borderRadius),
+                color: widget.backgroundColor,
                 child: ConstrainedBox(
                   constraints: BoxConstraints(
                     maxHeight: _suggestionBoxHeight,
