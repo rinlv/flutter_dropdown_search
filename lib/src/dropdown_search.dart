@@ -9,7 +9,7 @@ import 'suggestions_box_controller.dart';
 typedef OptionsInputSuggestions<T> = FutureOr<List<T>> Function(String query);
 typedef OptionSelected<T> = void Function(T data, bool selected);
 typedef OptionsBuilder<T> = Widget Function(
-    BuildContext context, _OptionsInputState<T> state, T data, int index);
+    BuildContext context, _OptionsInputState<T> state, T data);
 
 class OptionsInput<T> extends StatefulWidget {
   final OptionsInputSuggestions<T> findSuggestions;
@@ -25,6 +25,7 @@ class OptionsInput<T> extends StatefulWidget {
   final TextStyle textStyle;
   final double scrollPadding;
   final List<T> initOptions;
+  final double borderRadius;
 
   const OptionsInput(
       {Key key,
@@ -40,7 +41,8 @@ class OptionsInput<T> extends StatefulWidget {
       this.scrollPadding = 40,
       this.initOptions = const [],
       this.inputHeight = 40,
-      this.spaceSuggestionBox = 4})
+      this.spaceSuggestionBox = 4,
+      this.borderRadius = 0})
       : super(key: key);
 
   @override
@@ -149,8 +151,21 @@ class _OptionsInputState<T> extends State<OptionsInput<T>> {
                     padding: EdgeInsets.zero,
                     itemCount: snapshot.data.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return widget.suggestionBuilder(
-                          context, this, snapshot.data[index], index);
+                      return widget.borderRadius > 0
+                          ? Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.vertical(
+                                      top: index == 0
+                                          ? Radius.circular(widget.borderRadius)
+                                          : Radius.zero,
+                                      bottom: index == snapshot.data.length - 1
+                                          ? Radius.circular(widget.borderRadius)
+                                          : Radius.zero)),
+                              child: widget.suggestionBuilder(
+                                  context, this, snapshot.data[index]),
+                            )
+                          : widget.suggestionBuilder(
+                              context, this, snapshot.data[index]);
                     },
                   ),
                 ),
