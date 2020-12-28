@@ -27,6 +27,7 @@ class OptionsInput<T> extends StatefulWidget {
   final List<T> initOptions;
   final double borderRadius;
   final Color backgroundColor;
+  final bool enabled;
 
   const OptionsInput(
       {Key key,
@@ -44,7 +45,8 @@ class OptionsInput<T> extends StatefulWidget {
       this.inputHeight = 40,
       this.spaceSuggestionBox = 4,
       this.borderRadius = 0,
-      this.backgroundColor = Colors.white})
+      this.backgroundColor = Colors.white,
+      this.enabled = true})
       : super(key: key);
 
   @override
@@ -94,6 +96,7 @@ class _OptionsInputState<T> extends State<OptionsInput<T>> {
                 style: widget.textStyle,
                 onSubmitted: _onSearchChanged,
                 scrollPadding: EdgeInsets.only(bottom: widget.scrollPadding),
+                enabled: widget.enabled,
               ),
               height: widget.inputHeight,
             ),
@@ -125,10 +128,8 @@ class _OptionsInputState<T> extends State<OptionsInput<T>> {
         final renderBoxOffset = renderBox.localToGlobal(Offset.zero);
         final topAvailableSpace = renderBoxOffset.dy;
         final mq = MediaQuery.of(context);
-        final bottomAvailableSpace = mq.size.height -
-            mq.viewInsets.bottom -
-            renderBoxOffset.dy -
-            size.height;
+        final bottomAvailableSpace =
+            mq.size.height - mq.viewInsets.bottom - renderBoxOffset.dy - size.height;
         final showTop = topAvailableSpace > bottomAvailableSpace;
         final _suggestionBoxHeight = showTop
             ? min(topAvailableSpace, widget.suggestionsBoxMaxHeight)
@@ -155,8 +156,7 @@ class _OptionsInputState<T> extends State<OptionsInput<T>> {
                     padding: EdgeInsets.zero,
                     itemCount: snapshot.data.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return widget.suggestionBuilder(
-                          context, this, snapshot.data[index]);
+                      return widget.suggestionBuilder(context, this, snapshot.data[index]);
                     },
                   ),
                 ),
@@ -199,8 +199,8 @@ class _OptionsInputState<T> extends State<OptionsInput<T>> {
   void _handleFocusChanged() {
     if (_focusNode.hasFocus) {
       _suggestionsBoxController.open();
-      Future.delayed(Duration(milliseconds: 100)).then(
-          (value) => _suggestionsStreamController.add(widget.initOptions));
+      Future.delayed(Duration(milliseconds: 100))
+          .then((value) => _suggestionsStreamController.add(widget.initOptions));
     } else {
       _suggestionsBoxController.close();
     }
