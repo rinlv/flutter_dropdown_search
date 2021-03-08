@@ -28,6 +28,9 @@ class OptionsInput<T> extends StatefulWidget {
   final double borderRadius;
   final Color backgroundColor;
   final bool enabled;
+  final Function onTextChanged;
+  final int maxLength;
+  final TextInputType keyboardType;
 
   const OptionsInput(
       {Key key,
@@ -46,7 +49,10 @@ class OptionsInput<T> extends StatefulWidget {
       this.spaceSuggestionBox = 4,
       this.borderRadius = 0,
       this.backgroundColor = Colors.white,
-      this.enabled = true})
+      this.enabled = true,
+      this.onTextChanged,
+      this.maxLength = 50,
+      this.keyboardType = TextInputType.text})
       : super(key: key);
 
   @override
@@ -89,7 +95,10 @@ class _OptionsInputState<T> extends State<OptionsInput<T>> {
               child: TextField(
                 controller: widget.textEditingController,
                 focusNode: _focusNode,
-                onChanged: _onSearchChanged,
+                onChanged: (val) {
+                  _onSearchChanged(val);
+                  widget.onTextChanged?.call(val);
+                },
                 decoration: widget.inputDecoration,
                 textInputAction: widget.textInputAction,
                 maxLines: 1,
@@ -97,6 +106,8 @@ class _OptionsInputState<T> extends State<OptionsInput<T>> {
                 onSubmitted: _onSearchChanged,
                 scrollPadding: EdgeInsets.only(bottom: widget.scrollPadding),
                 enabled: widget.enabled,
+                maxLength: widget.maxLength,
+                keyboardType: widget.keyboardType,
               ),
               height: widget.inputHeight,
             ),
