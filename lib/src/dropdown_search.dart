@@ -216,4 +216,8 @@ class _OptionsInputState<T> extends State<OptionsInput<T>> {
       _suggestionsBoxController.close();
     }
   }
+
+  void forceShow(List<T> items) {
+    _suggestionsStreamController.add(items);
+  }
 }
