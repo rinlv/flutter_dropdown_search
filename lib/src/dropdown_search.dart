@@ -9,7 +9,7 @@ import 'suggestions_box_controller.dart';
 typedef OptionsInputSuggestions<T> = FutureOr<List<T>> Function(String query);
 typedef OptionSelected<T> = void Function(T data, bool selected);
 typedef OptionsBuilder<T> = Widget Function(
-    BuildContext context, _OptionsInputState<T> state, T data);
+    BuildContext context, OptionsInputState<T> state, T data);
 
 class OptionsInput<T> extends StatefulWidget {
   final OptionsInputSuggestions<T> findSuggestions;
@@ -56,10 +56,10 @@ class OptionsInput<T> extends StatefulWidget {
       : super(key: key);
 
   @override
-  _OptionsInputState<T> createState() => _OptionsInputState<T>();
+  OptionsInputState<T> createState() => OptionsInputState<T>();
 }
 
-class _OptionsInputState<T> extends State<OptionsInput<T>> {
+class OptionsInputState<T> extends State<OptionsInput<T>> {
   final _layerLink = LayerLink();
   final _suggestionsStreamController = StreamController<List<T>>.broadcast();
   int _searchId = 0;
@@ -217,7 +217,7 @@ class _OptionsInputState<T> extends State<OptionsInput<T>> {
     }
   }
 
-  void forceShow(List<T> items) {
-    _suggestionsStreamController.add(items);
+  void forceShow(bool isShow) {
+    _suggestionsStreamController.add(isShow ? widget.initOptions : null);
   }
 }
