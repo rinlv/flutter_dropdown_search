@@ -99,7 +99,7 @@ class OptionsInputState<T> extends State<OptionsInput<T>> {
                   _onSearchChanged(val);
                   widget.onTextChanged?.call(val);
                 },
-                decoration: widget.inputDecoration,
+                decoration: widget.inputDecoration?.copyWith(counterText: ''),
                 textInputAction: widget.textInputAction,
                 maxLines: 1,
                 style: widget.textStyle,
