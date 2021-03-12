@@ -220,4 +220,8 @@ class OptionsInputState<T> extends State<OptionsInput<T>> {
   void forceShow(bool isShow) {
     _suggestionsStreamController.add(isShow ? widget.initOptions : null);
   }
+
+  void showSuggestions(List<T> items) {
+    _suggestionsStreamController.add(items);
+  }
 }
