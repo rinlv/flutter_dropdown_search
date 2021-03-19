@@ -31,6 +31,7 @@ class OptionsInput<T> extends StatefulWidget {
   final Function onTextChanged;
   final int maxLength;
   final TextInputType keyboardType;
+  final TextCapitalization textCapitalization;
 
   const OptionsInput(
       {Key key,
@@ -52,7 +53,8 @@ class OptionsInput<T> extends StatefulWidget {
       this.enabled = true,
       this.onTextChanged,
       this.maxLength = 50,
-      this.keyboardType = TextInputType.text})
+      this.keyboardType = TextInputType.text,
+      this.textCapitalization = TextCapitalization.sentences})
       : super(key: key);
 
   @override
@@ -93,6 +95,7 @@ class OptionsInputState<T> extends State<OptionsInput<T>> {
           children: [
             Container(
               child: TextField(
+                textCapitalization: widget.textCapitalization,
                 controller: widget.textEditingController,
                 focusNode: _focusNode,
                 onChanged: (val) {
